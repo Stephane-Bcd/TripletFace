@@ -1,7 +1,7 @@
 """train.py
 
 The file contains all the code to launch a training for the triplet loss facial
-recognition model and can be call with python3 -m resnet18.train --help.
+recognition model and can be call with python3 -m tripletface.train --help.
 """
 import matplotlib.pyplot as plt
 import numpy as np
@@ -10,8 +10,8 @@ import torch
 import os
 
 from triplettorch import HardNegativeTripletMiner
-from resnet18.core.dataset import ImageFolder
-from resnet18.core.model import Encoder
+from tripletface.core.dataset import ImageFolder
+from tripletface.core.model import Encoder
 from torch.utils.data import DataLoader
 from triplettorch import TripletDataset
 from torchvision import transforms
