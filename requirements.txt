@@ -6,3 +6,4 @@ torch==1.2.0
 TripletTorch==0.1.2
 Pillow==6.2.1
 scikit_learn==0.22
+future==0.18.2
