@@ -24,8 +24,8 @@ from tqdm import tqdm
 This part describes all the options the module can be executed with.
 """
 parser        = argparse.ArgumentParser( )
-parser.add_argument( '-s', '--dataset_path',  type = str,   required = True )
-parser.add_argument( '-m', '--model_path',    type = str,   required = True )
+parser.add_argument( '-s', '--dataset_path',  type = str,   default = "/content/drive/My Drive/dataset/dataset" )
+parser.add_argument( '-m', '--model_path',    type = str,   default = "/content/drive/My Drive/TripletFace/core" )
 parser.add_argument( '-i', '--input_size',    type = int,   default  = 224 )
 parser.add_argument( '-z', '--latent_size',   type = int,   default  = 64 )
 parser.add_argument( '-b', '--batch_size',    type = int,   default  = 32 )
