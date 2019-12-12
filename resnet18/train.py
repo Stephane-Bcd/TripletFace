@@ -23,7 +23,7 @@ from tqdm import tqdm
 
 This part describes all the options the module can be executed with.
 """
-parser        = argparse.ArgumentParser( )
+''''parser        = argparse.ArgumentParser( )
 parser.add_argument( '-s', '--dataset_path',  type = str,   default = "/content/drive/My Drive/dataset/dataset" )
 parser.add_argument( '-m', '--model_path',    type = str,   default = "/content/drive/My Drive/TripletFace/core" )
 parser.add_argument( '-i', '--input_size',    type = int,   default  = 224 )
@@ -33,19 +33,19 @@ parser.add_argument( '-e', '--epochs',        type = int,   default  = 10 )
 parser.add_argument( '-l', '--learning_rate', type = float, default  = 1e-3 )
 parser.add_argument( '-w', '--n_workers',     type = int,   default  = 4 )
 parser.add_argument( '-r', '--n_samples',     type = int,   default  = 6 )
-args          = parser.parse_args( )
+args          = parser.parse_args( )'''
 
-dataset_path  = args.dataset_path
-model_path    = args.model_path
+dataset_path  = "/content/drive/My Drive/dataset/dataset"
+model_path    = "/content/drive/My Drive/TripletFace/core"
 
-input_size    = args.input_size
-latent_size   = args.latent_size
+input_size    = 224
+latent_size   = 64
 
-batch_size    = args.batch_size
-epochs        = args.epochs
-learning_rate = args.learning_rate
-n_workers     = args.n_workers
-n_samples     = args.n_samples
+batch_size    = 32
+epochs        = 10
+learning_rate = 1e-3
+n_workers     = 4
+n_samples     = 6
 noise         = 1e-2
 
 if not os.path.isdir( model_path ):
