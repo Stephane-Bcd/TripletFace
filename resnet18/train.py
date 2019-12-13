@@ -10,8 +10,8 @@ import torch
 import os
 
 from triplettorch import HardNegativeTripletMiner
-from resnet18.core.dataset import ImageFolder
-from resnet18.core.model import Encoder
+from core.dataset import ImageFolder
+from core.model import Encoder
 from torch.utils.data import DataLoader
 from triplettorch import TripletDataset
 from torchvision import transforms
@@ -35,8 +35,14 @@ parser.add_argument( '-w', '--n_workers',     type = int,   default  = 4 )
 parser.add_argument( '-r', '--n_samples',     type = int,   default  = 6 )
 args          = parser.parse_args( )'''
 
-dataset_path  = "/content/drive/My Drive/dataset/dataset"
-model_path    = "/content/drive/My Drive/TripletFace/core"
+jupyter = torch.cuda.is_available()
+
+if jupyter:
+    dataset_path  = "/content/drive/My Drive/dataset/dataset"
+    model_path    = "/content/drive/My Drive/TripletFace/core"
+else:
+    dataset_path  = "/media/stephane/DATA/ESILV/A5/IA for IOT/Projet Final/dataset/"
+    model_path    = "/media/stephane/DATA/ESILV/A5/IA for IOT/Projet Final/TripletFace/resnet18/core/"
 
 input_size    = 224
 latent_size   = 64
@@ -81,7 +87,7 @@ This part descibes all the folder dataset for training and testing.
 """
 folder        = {
     'train': ImageFolder( os.path.join( dataset_path, 'train' ), trans[ 'train' ] ),
-    'test' : ImageFolder( os.path.join( dataset_path, 'test'  ), trans[ 'test'  ] )
+    'test' : ImageFolder( os.path.join( dataset_path, 'val'  ), trans[ 'test'  ] )
 }
 
 """dataset
@@ -127,8 +133,14 @@ loader        = {
 This part contains the model, loss, optimizer and figure ( to plot ) used for
 training.
 """
-encoder       = Encoder( latent_size ).cuda( )
-miner         = HardNegativeTripletMiner( .5 ).cuda( )
+if jupyter:
+    encoder       = Encoder( latent_size ).cuda( )
+    encoder       = Encoder( latent_size ).cuda( )
+    miner         = HardNegativeTripletMiner( .5 ).cuda( )
+else:
+    encoder       = Encoder( latent_size )
+    encoder       = Encoder( latent_size )
+    miner         = HardNegativeTripletMiner( .5 )
 optim         = Adam( encoder.parameters( ), lr = learning_rate )
 
 fig           = plt.figure( figsize = ( 8, 8 ) )
@@ -151,8 +163,12 @@ for e in tqdm( range( epochs ), desc = 'Epoch' ):
             labels, data    = batch
             labels          = torch.cat( [ label for label in labels ], axis = 0 )
             data            = torch.cat( [ datum for datum in   data ], axis = 0 )
-            labels          = labels.cuda( )
-            data            = data.cuda( )
+            if jupyter:
+                labels          = labels.cuda( )
+                data            = data.cuda( )
+            else:
+                labels          = labels
+                data            = data
 
             embeddings      = encoder( data )
             loss, frac_pos  = miner( labels, embeddings )
@@ -178,7 +194,10 @@ for e in tqdm( range( epochs ), desc = 'Epoch' ):
             labels, data = batch
             data         = torch.cat( [ datum for datum in   data ], axis = 0 )
             labels       = torch.cat( [ label for label in labels ], axis = 0 )
-            embeddings   = encoder( data.cuda( ) ).detach( ).cpu( ).numpy( )
+            if jupyter:
+                embeddings   = encoder( data.cuda( ) ).detach( ).cpu( ).numpy( )
+            else:
+                embeddings   = encoder( data ).detach( ).cpu( ).numpy( )
             labels       = labels.numpy( )
 
             test_embeddings.append( embeddings )

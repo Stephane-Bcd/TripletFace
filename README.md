@@ -19,6 +19,8 @@ This code uses the default ImageFolder dataset class:
 
 [ImageFolderDocumentation](https://pytorch.org/docs/stable/torchvision/datasets.html#torchvision.datasets.ImageFolder)
 
+Other quite simple tutorial: [tuto](https://medium.com/@iamHarin17/building-a-neural-network-in-pytorch-48e4361b6979)
+
 In finetuning, we start with a pretrained model and update all of the model’s parameters for our new task, in essence retraining the whole model. In feature extraction, we start with a pretrained model and only update the final layer weights from which we derive predictions.
 
 --> So we'll use feature extraction because we don't want to train model
