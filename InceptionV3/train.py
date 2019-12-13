@@ -19,10 +19,11 @@ print("Torchvision Version: ",torchvision.__version__)
 
 # Top level data directory. Here we assume the format of the directory conforms
 #   to the ImageFolder structure
-data_dir = "/media/stephane/DATA/ESILV/A5/IA for IOT/Projet Final/hymenoptera_data/"
+#data_dir = "/media/stephane/DATA/ESILV/A5/IA for IOT/Projet Final/hymenoptera_data/"
+data_dir = "/media/stephane/DATA/ESILV/A5/IA for IOT/Projet Final/dataset/"
 
 # Models to choose from [resnet, alexnet, vgg, squeezenet, densenet, inception]
-model_name = "squeezenet"
+model_name = "resnet"
 
 # Number of classes in the dataset
 num_classes = 2
@@ -31,7 +32,7 @@ num_classes = 2
 batch_size = 32
 
 # Number of epochs to train for
-num_epochs = 15
+num_epochs = 10
 
 # Flag for feature extracting. When False, we finetune the whole model,
 #   when True we only update the reshaped layer params

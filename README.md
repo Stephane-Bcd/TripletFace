@@ -51,9 +51,15 @@ I would put a bit more trust in this one personally
 
 
 
-## Trainings using triplet face dataset:
+# Trainings using triplet face dataset:
 The number of classes in our dataset:  ls dataset/test/ -A | wc -l
 It returned 17
+
+To fit to the code and gain some time, i just renamed the folders train and test to train and val
+
+## First test using resnet model
+
+
 
 
 # Triplet Face
