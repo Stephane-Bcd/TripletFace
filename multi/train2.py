@@ -30,13 +30,13 @@ data_dir = "/media/stephane/DATA/ESILV/A5/IA for IOT/Projet Final/hymenoptera_da
 model_name = "resnet"
 
 # Number of classes in the dataset
-num_classes = 2
+num_classes = 17
 
 # Batch size for training (change depending on how much memory you have)
 batch_size = 32
 
 # Number of epochs to train for
-num_epochs = 14
+num_epochs = 20
 
 # Flag for feature extracting. When False, we finetune the whole model,
 #   when True we only update the reshaped layer params
@@ -59,9 +59,9 @@ multi_label= "Resnet LR 0.001 Momentum 0.9"
 ##############################################
 # Initialize and Reshape the Networks (COMPARED TO SCRATCH OR ELSE)
 ##############################################
-model_name2 = "densenet"
+model_name2 = "inception"
 multi_scratch = Multi(model_name2, num_classes, feature_extract, use_pretrained, lr=0.001, momentum=0.9)
-multi_scratch_label= "Densenet LR 0.001 Momentum 0.9"
+multi_scratch_label= "inception LR 0.001 Momentum 0.9"
 
 
 ##############################################
@@ -163,31 +163,35 @@ def train_model(multi, dataloaders, criterion, num_epochs=25):
 
 # Data augmentation and normalization for training
 # Just normalization for validation
-data_transforms = {
-    'train': transforms.Compose([
-        transforms.RandomRotation( degrees = 360 ),
-        transforms.Resize( size = multi.input_size ),
-        transforms.RandomCrop( size = multi.input_size ),
-        transforms.RandomVerticalFlip( p = 0.5 ),
-        transforms.ColorJitter( brightness = .2, contrast = .2, saturation = .2, hue = .1 ),
-        transforms.ToTensor( ),
-        transforms.Lambda( lambda X: X * ( 1. - noise ) + torch.randn( X.shape ) * noise ),
-        transforms.Normalize( [ 0.485, 0.456, 0.406 ], [ 0.229, 0.224, 0.225 ] )
-    ]),
-    'val': transforms.Compose([
-        transforms.Resize(multi.input_size),
-        transforms.CenterCrop(multi.input_size),
-        transforms.ToTensor(),
-        transforms.Normalize([0.485, 0.456, 0.406], [0.229, 0.224, 0.225])
-    ]),
-}
+def create_data_loaders( input_size):
+    data_transforms = {
+        'train': transforms.Compose([
+            transforms.RandomRotation( degrees = 360 ),
+            transforms.Resize( size = input_size ),
+            transforms.RandomCrop( size = input_size ),
+            transforms.RandomVerticalFlip( p = 0.5 ),
+            transforms.ColorJitter( brightness = .2, contrast = .2, saturation = .2, hue = .1 ),
+            transforms.ToTensor( ),
+            transforms.Lambda( lambda X: X * ( 1. - noise ) + torch.randn( X.shape ) * noise ),
+            transforms.Normalize( [ 0.485, 0.456, 0.406 ], [ 0.229, 0.224, 0.225 ] )
+        ]),
+        'val': transforms.Compose([
+            transforms.Resize(input_size),
+            transforms.CenterCrop(input_size),
+            transforms.ToTensor(),
+            transforms.Normalize([0.485, 0.456, 0.406], [0.229, 0.224, 0.225])
+        ]),
+    }
+    print("Initializing Datasets and Dataloaders...")
 
-print("Initializing Datasets and Dataloaders...")
+    # Create training and validation datasets
+    image_datasets = {x: datasets.ImageFolder(os.path.join(data_dir, x), data_transforms[x]) for x in ['train', 'val']}
+    # Create training and validation dataloaders
+    dataloaders_dict = {x: torch.utils.data.DataLoader(image_datasets[x], batch_size=batch_size, shuffle=True, num_workers=4) for x in ['train', 'val']}
 
-# Create training and validation datasets
-image_datasets = {x: datasets.ImageFolder(os.path.join(data_dir, x), data_transforms[x]) for x in ['train', 'val']}
-# Create training and validation dataloaders
-dataloaders_dict = {x: torch.utils.data.DataLoader(image_datasets[x], batch_size=batch_size, shuffle=True, num_workers=4) for x in ['train', 'val']}
+    return dataloaders_dict
+
+
 
 
 
@@ -200,7 +204,7 @@ dataloaders_dict = {x: torch.utils.data.DataLoader(image_datasets[x], batch_size
 criterion = nn.CrossEntropyLoss()
 
 # Train and evaluate
-model_ft, hist = train_model(multi, dataloaders_dict, criterion, num_epochs)
+model_ft, hist = train_model(multi, create_data_loaders( multi.input_size ), criterion, num_epochs)
 
 
 ##############################################
@@ -210,7 +214,7 @@ model_ft, hist = train_model(multi, dataloaders_dict, criterion, num_epochs)
 # Run scratch or other compared model
 
 scratch_criterion = nn.CrossEntropyLoss()
-_,scratch_hist = train_model(multi_scratch, dataloaders_dict, scratch_criterion, num_epochs)
+_,scratch_hist = train_model(multi_scratch,  create_data_loaders( multi_scratch.input_size ), scratch_criterion, num_epochs)
 
 # Plot the training curves of validation accuracy vs. number
 #  of training epochs for the transfer learning method and
