@@ -12,7 +12,7 @@ import os
 import copy
 from tqdm import tqdm
 
-from TripletFace.InceptionV3.core import model
+from core.model import Multi
 
 print("PyTorch Version: ",torch.__version__)
 print("Torchvision Version: ",torchvision.__version__)
@@ -27,29 +27,58 @@ data_dir = "/media/stephane/DATA/ESILV/A5/IA for IOT/Projet Final/hymenoptera_da
 #data_dir = "/media/stephane/DATA/ESILV/A5/IA for IOT/Projet Final/dataset/"
 
 # Models to choose from [resnet, alexnet, vgg, squeezenet, densenet, inception]
-model_name = "resnet"
+model_name = "inception"
 
 # Number of classes in the dataset
-num_classes = 17
+num_classes = 2
 
 # Batch size for training (change depending on how much memory you have)
 batch_size = 32
 
 # Number of epochs to train for
-num_epochs = 10
+num_epochs = 2
 
 # Flag for feature extracting. When False, we finetune the whole model,
 #   when True we only update the reshaped layer params
 feature_extract = True
+
+use_pretrained = True
+
+
+##############################################
+# Initialize and Reshape the Networks (MAIN)
+##############################################
+
+# Initialize the model for this run
+multi = Multi(model_name, num_classes, feature_extract, use_pretrained)
+
+# Print the model we just instantiated
+print(multi.model_ft)
+
+multi.optimizer(feature_extract)
+
+##############################################
+# Initialize and Reshape the Networks (COMPARED TO SCRATCH OR ELSE)
+##############################################
+
+multi_scratch = Multi(model_name, num_classes, feature_extract=False, use_pretrained=False)
+multi_scratch.optimizer(feature_extract=False)
+
+
 
 
 
 ##############################################
 # Model Training and Validation Code
 ##############################################
+def train_model(multi, dataloaders, criterion, num_epochs=25):
+    
+    model = multi.model_ft
+    optimizer = multi.optimizer_ft
+    device = multi.device
+    is_inception = multi.model_name == "inception"
+    
 
-
-def train_model(model, dataloaders, criterion, optimizer, num_epochs=25, is_inception=False):
     since = time.time()
 
     val_acc_history = []
@@ -130,11 +159,6 @@ def train_model(model, dataloaders, criterion, optimizer, num_epochs=25, is_ince
     return model, val_acc_history
 
 
-# Initialize the model for this run
-encoder = Encoder( model_name, num_classes, feature_extract, use_pretrained=True )
-
-# Print the model we just instantiated
-print(encoder.model_ft)
 
 
 ##############################################
@@ -145,14 +169,14 @@ print(encoder.model_ft)
 # Just normalization for validation
 data_transforms = {
     'train': transforms.Compose([
-        transforms.RandomResizedCrop(input_size),
+        transforms.RandomResizedCrop(multi.input_size),
         transforms.RandomHorizontalFlip(),
         transforms.ToTensor(),
         transforms.Normalize([0.485, 0.456, 0.406], [0.229, 0.224, 0.225])
     ]),
     'val': transforms.Compose([
-        transforms.Resize(input_size),
-        transforms.CenterCrop(input_size),
+        transforms.Resize(multi.input_size),
+        transforms.CenterCrop(multi.input_size),
         transforms.ToTensor(),
         transforms.Normalize([0.485, 0.456, 0.406], [0.229, 0.224, 0.225])
     ]),
@@ -165,38 +189,6 @@ image_datasets = {x: datasets.ImageFolder(os.path.join(data_dir, x), data_transf
 # Create training and validation dataloaders
 dataloaders_dict = {x: torch.utils.data.DataLoader(image_datasets[x], batch_size=batch_size, shuffle=True, num_workers=4) for x in ['train', 'val']}
 
-# Detect if we have a GPU available
-device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
-
-
-##############################################
-# Create the Optimizer
-##############################################
-
-
-# Send the model to GPU
-model_ft = encoder.model_ft.to(device)
-
-# Gather the parameters to be optimized/updated in this run. If we are
-#  finetuning we will be updating all parameters. However, if we are
-#  doing feature extract method, we will only update the parameters
-#  that we have just initialized, i.e. the parameters with requires_grad
-#  is True.
-params_to_update = encoder.model_ft.parameters()
-print("Params to learn:")
-if feature_extract:
-    params_to_update = []
-    for name,param in model_ft.named_parameters():
-        if param.requires_grad == True:
-            params_to_update.append(param)
-            print("\t",name)
-else:
-    for name,param in model_ft.named_parameters():
-        if param.requires_grad == True:
-            print("\t",name)
-
-# Observe that all parameters are being optimized
-optimizer_ft = optim.SGD(params_to_update, lr=0.001, momentum=0.9)
 
 
 ##############################################
@@ -208,19 +200,17 @@ optimizer_ft = optim.SGD(params_to_update, lr=0.001, momentum=0.9)
 criterion = nn.CrossEntropyLoss()
 
 # Train and evaluate
-model_ft, hist = train_model(encoder.model_ft, dataloaders_dict, criterion, optimizer_ft, num_epochs=num_epochs, is_inception=(model_name=="inception"))
+model_ft, hist = train_model(multi, dataloaders_dict, criterion, num_epochs)
 
 
 ##############################################
 # Comparison with Model Trained from Scratch
 ##############################################
 
-# Initialize the non-pretrained version of the model used for this run
-scratch_model,_ = initialize_model(model_name, num_classes, feature_extract=False, use_pretrained=False)
-scratch_model = scratch_model.to(device)
-scratch_optimizer = optim.SGD(scratch_model.parameters(), lr=0.001, momentum=0.9)
+# Run scratch or other compared model
+
 scratch_criterion = nn.CrossEntropyLoss()
-_,scratch_hist = train_model(scratch_model, dataloaders_dict, scratch_criterion, scratch_optimizer, num_epochs=num_epochs, is_inception=(model_name=="inception"))
+_,scratch_hist = train_model(multi_scratch, dataloaders_dict, scratch_criterion, num_epochs)
 
 # Plot the training curves of validation accuracy vs. number
 #  of training epochs for the transfer learning method and
