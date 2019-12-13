@@ -23,8 +23,14 @@ print("Torchvision Version: ",torchvision.__version__)
 
 # Top level data directory. Here we assume the format of the directory conforms
 #   to the ImageFolder structure
-data_dir = "/media/stephane/DATA/ESILV/A5/IA for IOT/Projet Final/hymenoptera_data/"
-#data_dir = "/media/stephane/DATA/ESILV/A5/IA for IOT/Projet Final/dataset/"
+jupyter = torch.cuda.is_available()
+
+if jupyter:
+    data_dir  = "/content/drive/My Drive/dataset/dataset"
+else:
+    data_dir = "/media/stephane/DATA/ESILV/A5/IA for IOT/Projet Final/hymenoptera_data/"
+    # data_dir = "/media/stephane/DATA/ESILV/A5/IA for IOT/Projet Final/dataset/"
+
 
 # Models to choose from [resnet, alexnet, vgg, squeezenet, densenet, inception]
 model_name = "resnet"
