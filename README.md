@@ -1,21 +1,38 @@
 Triplet loss for facial recognition.
 
+# First attempt using Google Colab
+It was quite hard and messy to make Python code work using git clone etc.
+In fact I had many problems 
+* in passing args to executed python scripts
+* in unzipping or downloading the dataset
+* in coding by the way, i hate jupyter notebook
+* in managing to code in all that mess
+
+So i'll try to do it an other and more simple way
+
 # Source of inceptionV3 tutorial
-https://pytorch.org/tutorials/beginner/finetuning_torchvision_models_tutorial.html
-My attempt to have better accuracy will be based on this inceptionv3 model
+[pytorch.org/tutorials](https://pytorch.org/tutorials/beginner/finetuning_torchvision_models_tutorial.html)
+
+My attempt to have better accuracy will be based on this tutorial code
 
 In finetuning, we start with a pretrained model and update all of the model’s parameters for our new task, in essence retraining the whole model. In feature extraction, we start with a pretrained model and only update the final layer weights from which we derive predictions.
 
 --> So we'll use feature extraction because we don't want to train model
 
-to install requirements
+to install requirements:
+
 alias py3=/usr/bin/python3
 py3 -m pip install -r requirements.txt
+
+## trainings using hymenoptera_data datataset
 
 First test using resnet model:
 
 ![result resnet hymenoptera_data](result_resnet_hymenoptera_data.png)
 
+
+
+## trainings using triplet face dataset:
 The number of classes in our dataset:  ls dataset/test/ -A | wc -l
 It returned 17
 
