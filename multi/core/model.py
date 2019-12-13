@@ -26,6 +26,8 @@ class Multi( nn.Module ):
 
         self.optimizer (feature_extract, lr, momentum)
 
+        self.traced_model_ft = None
+
     def set_parameter_requires_grad(self: 'Multi', model, feature_extracting):
         if feature_extracting:
             for param in model.parameters():
@@ -104,6 +106,7 @@ class Multi( nn.Module ):
 
 
     def forward( self: 'Multi', X: torch.Tensor ):
+        self.traced_model_ft = torch.jit.trace(self.model_ft, (X))
         return self.model_ft( X )
 
 
