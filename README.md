@@ -13,7 +13,8 @@ alias py3=/usr/bin/python3
 py3 -m pip install -r requirements.txt
 
 First test using resnet model:
-![TSNE_Latent](result resnet hymenoptera_data.png)
+
+![result resnet hymenoptera_data](result_resnet_hymenoptera_data.png)
 
 The number of classes in our dataset:  ls dataset/test/ -A | wc -l
 It returned 17
