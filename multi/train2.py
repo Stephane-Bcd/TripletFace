@@ -113,12 +113,12 @@ def train_model(multi, dataloaders, criterion, num_epochs=25):
                     #   but in testing we only consider the final output.
                     if is_inception and phase == 'train':
                         # From https://discuss.pytorch.org/t/how-to-optimize-inception-model-with-auxiliary-classifiers/7958
-                        outputs, aux_outputs = model(inputs)
+                        outputs, aux_outputs = multi.forward(inputs)
                         loss1 = criterion(outputs, labels)
                         loss2 = criterion(aux_outputs, labels)
                         loss = loss1 + 0.4*loss2
                     else:
-                        outputs = model(inputs)
+                        outputs = multi.forward(inputs)
                         loss = criterion(outputs, labels)
 
                     _, preds = torch.max(outputs, 1)
