@@ -39,6 +39,17 @@ py3 -m pip install -r requirements.txt
 
 ![result_inception_hymenoptera_data](result_inception_hymenoptera_data.png)
 
+We can see that the accuracy is slightly better for inception at the beginning of training
+But for all the rest, it's quite the same
+
+## Third test using squeezenet model
+
+![result_squeezenet_hymenoptera_data](result_squeezenet_hymenoptera_data.png)
+
+This one seems to be very stable, but has quite the same accuracy as the two others
+I would put a bit more trust in this one personally
+
+
 
 ## Trainings using triplet face dataset:
 The number of classes in our dataset:  ls dataset/test/ -A | wc -l

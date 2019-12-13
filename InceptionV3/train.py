@@ -22,13 +22,13 @@ print("Torchvision Version: ",torchvision.__version__)
 data_dir = "/media/stephane/DATA/ESILV/A5/IA for IOT/Projet Final/hymenoptera_data/"
 
 # Models to choose from [resnet, alexnet, vgg, squeezenet, densenet, inception]
-model_name = "inception"
+model_name = "squeezenet"
 
 # Number of classes in the dataset
 num_classes = 2
 
 # Batch size for training (change depending on how much memory you have)
-batch_size = 16
+batch_size = 32
 
 # Number of epochs to train for
 num_epochs = 15
