@@ -59,9 +59,9 @@ multi_label= "Resnet LR 0.001 Momentum 0.9"
 ##############################################
 # Initialize and Reshape the Networks (COMPARED TO SCRATCH OR ELSE)
 ##############################################
-
-multi_scratch = Multi(model_name, num_classes, feature_extract, use_pretrained, lr=0.0001, momentum=0.95)
-multi_scratch_label= "Resnet LR 0.0001 Momentum 0.95"
+model_name2 = "densenet"
+multi_scratch = Multi(model_name2, num_classes, feature_extract, use_pretrained, lr=0.001, momentum=0.9)
+multi_scratch_label= "Densenet LR 0.001 Momentum 0.9"
 
 
 ##############################################
@@ -220,6 +220,8 @@ shist = []
 
 ohist = [h.cpu().numpy() for h in hist]
 shist = [h.cpu().numpy() for h in scratch_hist]
+
+#print(multi.traced_model_ft.code)
 
 plt.title("Validation Accuracy vs. Number of Training Epochs")
 plt.xlabel("Training Epochs")

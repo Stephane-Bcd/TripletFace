@@ -106,7 +106,7 @@ class Multi( nn.Module ):
 
 
     def forward( self: 'Multi', X: torch.Tensor ):
-        self.traced_model_ft = torch.jit.trace(self.model_ft, (X))
+        # self.traced_model_ft = torch.jit.trace(self.model_ft, (X))
         return self.model_ft( X )
 
 

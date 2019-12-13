@@ -71,12 +71,6 @@ Both are already trained and use feature extraction
 
 Seem to be quite the sames
 
-## Fifth test comparison between Resnet18 and densenet
-
-As i have a complete code ready to put into action, just for test, i'll compare resnet to densenet
-
-![result_resnet_densenet_hymenoptera_dataset](results/result_resnet_densenet_hymenoptera_dataset.png)
-
 # Trainings using triplet face dataset:
 The number of classes in our dataset:  ls dataset/test/ -A | wc -l
 It returned 17
@@ -92,16 +86,6 @@ I suppose that the accuracy is so good because we have mny images for each class
 Training complete in 37m 21s
 
 Best val Acc: 0.999383
-
-
-# Going back on Google Colab
-
-Yes, I know, I don't have Nvidia GPU on my computer, so it's quite hard to execute triplet loss with so many images hehe.
-
-I'll do the same type of tests as on my computer but trying to concentrate on our dataset this time.
-
-
-
 
 # Triplet Face
 

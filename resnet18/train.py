@@ -39,7 +39,7 @@ jupyter = torch.cuda.is_available()
 
 if jupyter:
     dataset_path  = "/content/drive/My Drive/dataset/dataset"
-    model_path    = "/content/drive/My Drive/TripletFace/core"
+    model_path    = "/content/drive/My Drive/TripletFace/resnet18/core"
 else:
     dataset_path  = "/media/stephane/DATA/ESILV/A5/IA for IOT/Projet Final/dataset/"
     model_path    = "/media/stephane/DATA/ESILV/A5/IA for IOT/Projet Final/TripletFace/resnet18/core/"
