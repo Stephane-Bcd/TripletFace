@@ -45,6 +45,8 @@ feature_extract = True
 # Yes we'll always use pretrained because we need to gain some time
 use_pretrained = True
 
+noise = 1e-2
+
 
 ##############################################
 # Initialize and Reshape the Networks (MAIN)
@@ -163,10 +165,14 @@ def train_model(multi, dataloaders, criterion, num_epochs=25):
 # Just normalization for validation
 data_transforms = {
     'train': transforms.Compose([
-        transforms.RandomResizedCrop(multi.input_size),
-        transforms.RandomHorizontalFlip(),
-        transforms.ToTensor(),
-        transforms.Normalize([0.485, 0.456, 0.406], [0.229, 0.224, 0.225])
+        transforms.RandomRotation( degrees = 360 ),
+        transforms.Resize( size = multi.input_size ),
+        transforms.RandomCrop( size = multi.input_size ),
+        transforms.RandomVerticalFlip( p = 0.5 ),
+        transforms.ColorJitter( brightness = .2, contrast = .2, saturation = .2, hue = .1 ),
+        transforms.ToTensor( ),
+        transforms.Lambda( lambda X: X * ( 1. - noise ) + torch.randn( X.shape ) * noise ),
+        transforms.Normalize( [ 0.485, 0.456, 0.406 ], [ 0.229, 0.224, 0.225 ] )
     ]),
     'val': transforms.Compose([
         transforms.Resize(multi.input_size),
