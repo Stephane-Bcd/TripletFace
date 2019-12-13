@@ -55,6 +55,7 @@ drive.mount('/content/drive')
 dataset_home = "/content/drive/My Drive/dataset/dataset"
 git_home = "/content/drive/My Drive/TripletFace"
 resnet_home = "/content/drive/My Drive/TripletFace/resnet18"
+multi_home = "/content/drive/My Drive/TripletFace/multi"
 model_path = "/content/drive/My Drive/TripletFace/core"
 
 # installing requirements
@@ -66,12 +67,7 @@ if resnet_home not in sys.path:
 
 import resnet18
 
-import os
+# Commented out IPython magic to ensure Python compatibility.
+# %cd $multi_home
 
-os.chdir(resnet_home)
-os.listdir()
-
-from resnet18 import train
-
-! python ./train.py
-
+! python ./train2.py
