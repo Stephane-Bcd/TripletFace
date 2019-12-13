@@ -35,12 +35,20 @@ py3 -m pip install -r requirements.txt
 
 ![result resnet hymenoptera_data](result_resnet_hymenoptera_data.png)
 
+Training complete in 1m 56s
+
+Best val Acc: 0.941176
+
 ## Second test using InceptionV3 model
 
 ![result_inception_hymenoptera_data](result_inception_hymenoptera_data.png)
 
 We can see that the accuracy is slightly better for inception at the beginning of training
 But for all the rest, it's quite the same
+
+Training complete in 6m 59s
+
+Best val Acc: 0.928105
 
 ## Third test using squeezenet model
 
@@ -49,7 +57,9 @@ But for all the rest, it's quite the same
 This one seems to be very stable, but has quite the same accuracy as the two others
 I would put a bit more trust in this one personally
 
+Training complete in 1m 54s
 
+Best val Acc: 0.928105
 
 # Trainings using triplet face dataset:
 The number of classes in our dataset:  ls dataset/test/ -A | wc -l
@@ -59,8 +69,11 @@ To fit to the code and gain some time, i just renamed the folders train and test
 
 ## First test using resnet model
 
+![result_resnet_dataset](result_resnet_dataset.png)
 
+Training complete in 37m 21s
 
+Best val Acc: 0.999383
 
 # Triplet Face
 

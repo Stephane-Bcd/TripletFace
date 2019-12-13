@@ -80,9 +80,6 @@ class Encoder( nn.Module ):
     def forward( self: 'Encoder', X: torch.Tensor ) -> torch.Tensor:
         return self.model_ft( X )
 
-    def forward_inception( self: 'Encoder', X: torch.Tensor ) -> (torch.Tensor, torch.Tensor):
-        return self.model_ft( X )
-
 
 
 
