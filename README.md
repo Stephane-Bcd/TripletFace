@@ -95,6 +95,8 @@ To fit to the code and gain some time, i just renamed the folders train and test
 
 I suppose that the accuracy is so good because we have mny images for each class (person)
 
+This result isn't a good one to interpret, because transformations on images were way too easy for the algorithm to learn. So new tests have been done using resnet in google colab
+
 Training complete in 37m 21s
 
 Best val Acc: 0.999383
