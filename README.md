@@ -31,6 +31,12 @@ alias py3=/usr/bin/python3
 
 py3 -m pip install -r requirements.txt
 
+# Description of script files:
+
+* resnet18/train.py: Ylies script: resnet18 with triplet loss
+* multi/train.py: original script from tutorial site (can choose model) but using criteria nn.CrossEntropyLoss()
+* multi/train2.py: script adapted to have model class still using criteria nn.CrossEntropyLoss()
+
 # Trainings using hymenoptera_data datataset
 
 ## First test using resnet model
@@ -100,7 +106,12 @@ Yes, I know, I don't have Nvidia GPU on my computer, so it's quite hard to execu
 
 I'll do the same type of tests as on my computer but trying to concentrate on our dataset this time.
 
+So i made a comparison between between resnet and squeezenet (20 epochs):
 
+* Best val Acc: 0.999383 for squeezenet
+* Best val Acc: 0.988279 for resnet18
+
+So, i'll try to focus on squeezenet
 
 
 # Triplet Face

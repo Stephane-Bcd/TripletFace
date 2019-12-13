@@ -48,7 +48,7 @@ input_size    = 224
 latent_size   = 64
 
 batch_size    = 32
-epochs        = 10
+epochs        = 3
 learning_rate = 1e-3
 n_workers     = 4
 n_samples     = 6
