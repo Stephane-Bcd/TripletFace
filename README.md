@@ -8,7 +8,9 @@ In finetuning, we start with a pretrained model and update all of the model’s 
 
 --> So we'll use feature extraction because we don't want to train model
 
-
+to install requirements
+alias py3=/usr/bin/python3
+py3 -m pip install -r requirements.txt
 
 
 # Triplet Face
