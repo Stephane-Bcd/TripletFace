@@ -65,8 +65,9 @@ Best val Acc: 0.928105
 
 Both are already trained and use feature extraction
 
+![result_resnets_comparison_hymenoptera_dataset](results/result_resnets_comparison_hymenoptera_dataset.png)
 
-
+Seem to be quite the sames
 
 # Trainings using triplet face dataset:
 The number of classes in our dataset:  ls dataset/test/ -A | wc -l
