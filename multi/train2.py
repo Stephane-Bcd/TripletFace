@@ -12,6 +12,8 @@ import os
 import copy
 from tqdm import tqdm
 
+from TripletFace.InceptionV3.core import model
+
 print("PyTorch Version: ",torch.__version__)
 print("Torchvision Version: ",torchvision.__version__)
 
@@ -21,8 +23,8 @@ print("Torchvision Version: ",torchvision.__version__)
 
 # Top level data directory. Here we assume the format of the directory conforms
 #   to the ImageFolder structure
-#data_dir = "/media/stephane/DATA/ESILV/A5/IA for IOT/Projet Final/hymenoptera_data/"
-data_dir = "/media/stephane/DATA/ESILV/A5/IA for IOT/Projet Final/dataset/"
+data_dir = "/media/stephane/DATA/ESILV/A5/IA for IOT/Projet Final/hymenoptera_data/"
+#data_dir = "/media/stephane/DATA/ESILV/A5/IA for IOT/Projet Final/dataset/"
 
 # Models to choose from [resnet, alexnet, vgg, squeezenet, densenet, inception]
 model_name = "resnet"

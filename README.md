@@ -33,7 +33,7 @@ py3 -m pip install -r requirements.txt
 
 ## First test using resnet model:
 
-![result resnet hymenoptera_data](result_resnet_hymenoptera_data.png)
+![result resnet hymenoptera_data](results/result_resnet_hymenoptera_data.png)
 
 Training complete in 1m 56s
 
@@ -41,7 +41,7 @@ Best val Acc: 0.941176
 
 ## Second test using InceptionV3 model
 
-![result_inception_hymenoptera_data](result_inception_hymenoptera_data.png)
+![result_inception_hymenoptera_data](results/result_inception_hymenoptera_data.png)
 
 We can see that the accuracy is slightly better for inception at the beginning of training
 But for all the rest, it's quite the same
@@ -52,7 +52,7 @@ Best val Acc: 0.928105
 
 ## Third test using squeezenet model
 
-![result_squeezenet_hymenoptera_data](result_squeezenet_hymenoptera_data.png)
+![result_squeezenet_hymenoptera_data](results/result_squeezenet_hymenoptera_data.png)
 
 This one seems to be very stable, but has quite the same accuracy as the two others
 I would put a bit more trust in this one personally
@@ -69,7 +69,9 @@ To fit to the code and gain some time, i just renamed the folders train and test
 
 ## First test using resnet model
 
-![result_resnet_dataset](result_resnet_dataset.png)
+![result_resnet_dataset](results/result_resnet_dataset.png)
+
+I suppose that the accuracy is so good because we have mny images for each class (person)
 
 Training complete in 37m 21s
 
@@ -81,7 +83,7 @@ The repository contains code for the application of triplet loss training to the
 task of facial recognition. This code has been produced for a lecture and is not
 going to be maintained in any sort.
 
-![TSNE_Latent](TSNE_Latent.png)
+![TSNE_Latent](results/TSNE_Latent.png)
 
 ## Architecture
 
