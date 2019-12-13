@@ -10,10 +10,10 @@ In fact I had many problems
 
 So i'll try to do it an other and more simple way
 
-# Source of inceptionV3 tutorial
+# Source of the new code (inceptionV3 and resnet!)
 [pytorch.org/tutorials](https://pytorch.org/tutorials/beginner/finetuning_torchvision_models_tutorial.html)
 
-My attempt to have better accuracy will be based on this tutorial code
+My attempt to have better accuracy will be based on this tutorial code, and will be executed locally
 
 This code uses the default ImageFolder dataset class:
 
@@ -29,16 +29,18 @@ alias py3=/usr/bin/python3
 
 py3 -m pip install -r requirements.txt
 
-## trainings using hymenoptera_data datataset
+# Trainings using hymenoptera_data datataset
 
-First test using resnet model:
+## First test using resnet model:
 
 ![result resnet hymenoptera_data](result_resnet_hymenoptera_data.png)
 
+## Second test using InceptionV3 model
+
+![result_inception_hymenoptera_data](result_inception_hymenoptera_data.png)
 
 
-
-## trainings using triplet face dataset:
+## Trainings using triplet face dataset:
 The number of classes in our dataset:  ls dataset/test/ -A | wc -l
 It returned 17
 
