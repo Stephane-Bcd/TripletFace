@@ -42,6 +42,7 @@ num_epochs = 2
 #   when True we only update the reshaped layer params
 feature_extract = True
 
+# Yes we'll always use pretrained because we need to gain some time
 use_pretrained = True
 
 
@@ -52,20 +53,11 @@ use_pretrained = True
 # Initialize the model for this run
 multi = Multi(model_name, num_classes, feature_extract, use_pretrained)
 
-# Print the model we just instantiated
-print(multi.model_ft)
-
-multi.optimizer(feature_extract)
-
 ##############################################
 # Initialize and Reshape the Networks (COMPARED TO SCRATCH OR ELSE)
 ##############################################
 
 multi_scratch = Multi(model_name, num_classes, feature_extract=False, use_pretrained=False)
-multi_scratch.optimizer(feature_extract=False)
-
-
-
 
 
 ##############################################

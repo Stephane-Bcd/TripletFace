@@ -10,6 +10,8 @@ class Multi( nn.Module ):
 
         self.model_ft = None
         self.input_size = 0
+        self.device = None
+        self.optimizer_ft = None
 
         model_ft, input_size = self.initialize_model(model_name, num_classes, feature_extract, use_pretrained)
 
@@ -19,8 +21,8 @@ class Multi( nn.Module ):
         self.num_classes = num_classes
         self.feature_extract = feature_extract
         self.use_pretrained = use_pretrained
-        self.device = None
-        self.optimizer_ft = None
+
+        self.optimizer (feature_extract)
 
     def set_parameter_requires_grad(self: 'Multi', model, feature_extracting):
         if feature_extracting:
