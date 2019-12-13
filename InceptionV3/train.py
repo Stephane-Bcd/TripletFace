@@ -26,7 +26,7 @@ data_dir = "/media/stephane/DATA/ESILV/A5/IA for IOT/Projet Final/dataset/"
 model_name = "resnet"
 
 # Number of classes in the dataset
-num_classes = 2
+num_classes = 17
 
 # Batch size for training (change depending on how much memory you have)
 batch_size = 32
