@@ -33,7 +33,7 @@ else:
 
 
 # Models to choose from [resnet, alexnet, vgg, squeezenet, densenet, inception]
-model_name = "resnet"
+model_name = "squeezenet"
 
 # Number of classes in the dataset
 num_classes = 17
@@ -60,14 +60,14 @@ noise = 1e-2
 
 # Initialize the model for this run
 multi = Multi(model_name, num_classes, feature_extract, use_pretrained, lr=0.001, momentum=0.9)
-multi_label= "Resnet LR 0.001 Momentum 0.9"
+multi_label= "Squeezenet LR 0.001 Momentum 0.9"
 
 ##############################################
 # Initialize and Reshape the Networks (COMPARED TO SCRATCH OR ELSE)
 ##############################################
-model_name2 = "inception"
+model_name2 = "resnet"
 multi_scratch = Multi(model_name2, num_classes, feature_extract, use_pretrained, lr=0.001, momentum=0.9)
-multi_scratch_label= "inception LR 0.001 Momentum 0.9"
+multi_scratch_label= "resnet LR 0.001 Momentum 0.9"
 
 
 ##############################################
