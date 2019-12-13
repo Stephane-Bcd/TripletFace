@@ -4,7 +4,7 @@ from torchvision import models
 import torch.optim as optim
 
 class Multi( nn.Module ):
-    def __init__( self: 'Multi', model_name: str, num_classes: int, feature_extract: bool, use_pretrained=True) -> None:
+    def __init__( self: 'Multi', model_name: str, num_classes: int, feature_extract: bool, use_pretrained: bool, lr, momentum) -> None:
         
         super( Multi, self ).__init__( )
 
@@ -21,8 +21,10 @@ class Multi( nn.Module ):
         self.num_classes = num_classes
         self.feature_extract = feature_extract
         self.use_pretrained = use_pretrained
+        self.lr = lr
+        self.momentum = momentum
 
-        self.optimizer (feature_extract)
+        self.optimizer (feature_extract, lr, momentum)
 
     def set_parameter_requires_grad(self: 'Multi', model, feature_extracting):
         if feature_extracting:
@@ -105,7 +107,7 @@ class Multi( nn.Module ):
         return self.model_ft( X )
 
 
-    def optimizer (self: 'Multi', feature_extract: bool):
+    def optimizer (self: 'Multi', feature_extract: bool, lr, momentum):
         # Detect if we have a GPU available
         device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
 

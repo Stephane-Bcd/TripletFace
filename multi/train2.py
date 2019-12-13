@@ -27,7 +27,7 @@ data_dir = "/media/stephane/DATA/ESILV/A5/IA for IOT/Projet Final/hymenoptera_da
 #data_dir = "/media/stephane/DATA/ESILV/A5/IA for IOT/Projet Final/dataset/"
 
 # Models to choose from [resnet, alexnet, vgg, squeezenet, densenet, inception]
-model_name = "inception"
+model_name = "resnet"
 
 # Number of classes in the dataset
 num_classes = 2
@@ -36,7 +36,7 @@ num_classes = 2
 batch_size = 32
 
 # Number of epochs to train for
-num_epochs = 2
+num_epochs = 14
 
 # Flag for feature extracting. When False, we finetune the whole model,
 #   when True we only update the reshaped layer params
@@ -51,13 +51,15 @@ use_pretrained = True
 ##############################################
 
 # Initialize the model for this run
-multi = Multi(model_name, num_classes, feature_extract, use_pretrained)
+multi = Multi(model_name, num_classes, feature_extract, use_pretrained, lr=0.001, momentum=0.9)
+multi_label= "Resnet LR 0.001 Momentum 0.9"
 
 ##############################################
 # Initialize and Reshape the Networks (COMPARED TO SCRATCH OR ELSE)
 ##############################################
 
-multi_scratch = Multi(model_name, num_classes, feature_extract=False, use_pretrained=False)
+multi_scratch = Multi(model_name, num_classes, feature_extract, use_pretrained, lr=0.0001, momentum=0.95)
+multi_scratch_label= "Resnet LR 0.0001 Momentum 0.95"
 
 
 ##############################################
@@ -216,8 +218,8 @@ shist = [h.cpu().numpy() for h in scratch_hist]
 plt.title("Validation Accuracy vs. Number of Training Epochs")
 plt.xlabel("Training Epochs")
 plt.ylabel("Validation Accuracy")
-plt.plot(range(1,num_epochs+1),ohist,label="Pretrained")
-plt.plot(range(1,num_epochs+1),shist,label="Scratch")
+plt.plot(range(1,num_epochs+1),ohist,label=multi_label)
+plt.plot(range(1,num_epochs+1),shist,label=multi_scratch_label)
 plt.ylim((0,1.))
 plt.xticks(np.arange(1, num_epochs+1, 1.0))
 plt.legend()

@@ -31,7 +31,7 @@ py3 -m pip install -r requirements.txt
 
 # Trainings using hymenoptera_data datataset
 
-## First test using resnet model:
+## First test using resnet model
 
 ![result resnet hymenoptera_data](results/result_resnet_hymenoptera_data.png)
 
@@ -60,6 +60,13 @@ I would put a bit more trust in this one personally
 Training complete in 1m 54s
 
 Best val Acc: 0.928105
+
+## Fourth test comparison between Resnet18 LR 0.001 Momentum 0.9 and Resnet18 LR 0.0001 Momentum 0.95
+
+Both are already trained and use feature extraction
+
+
+
 
 # Trainings using triplet face dataset:
 The number of classes in our dataset:  ls dataset/test/ -A | wc -l
