@@ -15,6 +15,10 @@ So i'll try to do it an other and more simple way
 
 My attempt to have better accuracy will be based on this tutorial code
 
+This code uses the default ImageFolder dataset class:
+
+[ImageFolderDocumentation](https://pytorch.org/docs/stable/torchvision/datasets.html#torchvision.datasets.ImageFolder)
+
 In finetuning, we start with a pretrained model and update all of the model’s parameters for our new task, in essence retraining the whole model. In feature extraction, we start with a pretrained model and only update the final layer weights from which we derive predictions.
 
 --> So we'll use feature extraction because we don't want to train model
@@ -22,6 +26,7 @@ In finetuning, we start with a pretrained model and update all of the model’s 
 to install requirements:
 
 alias py3=/usr/bin/python3
+
 py3 -m pip install -r requirements.txt
 
 ## trainings using hymenoptera_data datataset
@@ -29,6 +34,7 @@ py3 -m pip install -r requirements.txt
 First test using resnet model:
 
 ![result resnet hymenoptera_data](result_resnet_hymenoptera_data.png)
+
 
 
 
